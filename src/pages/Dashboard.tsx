@@ -50,35 +50,38 @@ const Dashboard: React.FC = () => {
       <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Dashboard</h1>
       
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard
-          title="Total Invoices"
-          value={stats.totalInvoices}
-          icon={<FileText size={24} />}
-          change={{ value: '12%', positive: true }}
-        />
-        
-        <StatCard
-          title="Unpaid Invoices"
-          value={stats.unpaidInvoices}
-          icon={<AlertTriangle size={24} />}
-          change={{ value: '5%', positive: false }}
-        />
-        
-        <StatCard
-          title="Active Clients"
-          value={stats.activeClients}
-          icon={<Users size={24} />}
-          change={{ value: '3%', positive: true }}
-        />
-        
-        <StatCard
-          title="Total Revenue"
-          value={formatCurrency(stats.totalRevenue)}
-          icon={<DollarSign size={24} />}
-          change={{ value: '18%', positive: true }}
-        />
-      </div>
+      <section>
+        <h2 className="sr-only">Statistics Overview</h2>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <StatCard
+            title="Total Invoices"
+            value={stats.totalInvoices}
+            icon={<FileText size={24} />}
+            change={{ value: '12%', positive: true }}
+          />
+          
+          <StatCard
+            title="Unpaid Invoices"
+            value={stats.unpaidInvoices}
+            icon={<AlertTriangle size={24} />}
+            change={{ value: '5%', positive: false }}
+          />
+          
+          <StatCard
+            title="Active Clients"
+            value={stats.activeClients}
+            icon={<Users size={24} />}
+            change={{ value: '3%', positive: true }}
+          />
+          
+          <StatCard
+            title="Total Revenue"
+            value={formatCurrency(stats.totalRevenue)}
+            icon={<DollarSign size={24} />}
+            change={{ value: '18%', positive: true }}
+          />
+        </div>
+      </section>
       
       {/* Recent Invoices */}
       <Card title="Recent Invoices" subtitle="Last 5 invoices created">

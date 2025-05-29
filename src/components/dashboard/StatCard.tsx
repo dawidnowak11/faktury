@@ -22,17 +22,19 @@ const StatCard: React.FC<StatCardProps> = ({
   return (
     <Card className={`h-full ${className}`}>
       <div className="flex items-center">
-        <div className="mr-4 rounded-full bg-blue-100 p-3 text-blue-600 dark:bg-blue-900 dark:text-blue-300">
+        <div className="mr-4 rounded-full bg-blue-100 p-3 text-blue-700 dark:bg-blue-900 dark:text-blue-200">
           {icon}
         </div>
         <div>
-          <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400">{title}</h4>
+          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-200">{title}</h3>
           <div className="flex items-center">
             <p className="text-2xl font-semibold text-gray-900 dark:text-white">{value}</p>
             {change && (
               <span 
                 className={`ml-2 text-xs font-medium ${
-                  change.positive ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
+                  change.positive 
+                    ? 'text-green-700 dark:text-green-300' 
+                    : 'text-red-700 dark:text-red-300'
                 }`}
               >
                 {change.positive ? '↑' : '↓'} {change.value}
