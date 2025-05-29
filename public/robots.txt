@@ -1,0 +1,16 @@
+# www.robotstxt.org
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://blinq.app/sitemap.xml
+
+# Disallow admin and api routes
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+
+# Crawl-delay for all bots
+Crawl-delay: 10 
