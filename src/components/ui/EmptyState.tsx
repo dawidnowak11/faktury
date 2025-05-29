@@ -24,9 +24,9 @@ const EmptyState: React.FC<EmptyStateProps> = ({
           {icon}
         </div>
       )}
-      <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+      <h2 className="text-xl font-medium text-gray-900 dark:text-white">
         {title}
-      </h3>
+      </h2>
       <p className="mt-2 text-sm text-gray-500 dark:text-gray-400 max-w-md">
         {description}
       </p>

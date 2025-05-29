@@ -69,9 +69,9 @@ const Modal: React.FC<ModalProps> = ({
         aria-labelledby="modal-title"
       >
         <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
-          <h3 id="modal-title" className="text-lg font-semibold text-gray-900 dark:text-white">
+          <h2 id="modal-title" className="text-lg font-semibold text-gray-900 dark:text-white">
             {title}
-          </h3>
+          </h2>
           <button
             type="button"
             onClick={onClose}
