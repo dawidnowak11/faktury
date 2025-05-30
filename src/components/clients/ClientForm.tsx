@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import Input from '../ui/Input';
 import Button from '../ui/Button';
 import { Client } from '../../types';
+import { clientSchema, ClientFormData } from '../../validation/schemas';
 
 interface ClientFormProps {
   initialData?: Partial<Client>;
@@ -14,160 +18,102 @@ const ClientForm: React.FC<ClientFormProps> = ({
   onSubmit,
   onCancel
 }) => {
-  const [client, setClient] = useState<Partial<Client>>({
-    id: initialData?.id || '',
-    name: initialData?.name || '',
-    email: initialData?.email || '',
-    phone: initialData?.phone || '',
-    address: initialData?.address || '',
-    city: initialData?.city || '',
-    state: initialData?.state || '',
-    zipCode: initialData?.zipCode || '',
-    country: initialData?.country || '',
-  });
+  const { t } = useTranslation();
   
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<ClientFormData>({
+    resolver: zodResolver(clientSchema),
+    defaultValues: {
+      name: initialData?.name || '',
+      email: initialData?.email || '',
+      phone: initialData?.phone || '',
+      address: initialData?.address || '',
+      city: initialData?.city || '',
+      state: initialData?.state || '',
+      zipCode: initialData?.zipCode || '',
+      country: initialData?.country || '',
+    }
+  });
 
-  const validateForm = () => {
-    const newErrors: Record<string, string> = {};
-    
-    if (!client.name?.trim()) {
-      newErrors.name = 'Name is required';
-    }
-    
-    if (!client.email?.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(client.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-    
-    if (!client.address?.trim()) {
-      newErrors.address = 'Address is required';
-    }
-    
-    if (!client.city?.trim()) {
-      newErrors.city = 'City is required';
-    }
-    
-    if (!client.state?.trim()) {
-      newErrors.state = 'State is required';
-    }
-    
-    if (!client.zipCode?.trim()) {
-      newErrors.zipCode = 'ZIP Code is required';
-    }
-    
-    if (!client.country?.trim()) {
-      newErrors.country = 'Country is required';
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (validateForm()) {
-      onSubmit(client);
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setClient(prev => ({ ...prev, [name]: value }));
-    
-    // Clear the error for this field when user types
-    if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }));
-    }
+  const onFormSubmit = (data: ClientFormData) => {
+    onSubmit({
+      ...initialData,
+      ...data
+    });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-4">
       <Input
-        label="Name"
-        name="name"
-        value={client.name}
-        onChange={handleChange}
-        error={errors.name}
+        label={t('clients.fields.name')}
+        error={errors.name && t(errors.name.message as string)}
+        {...register('name')}
         fullWidth
       />
       
       <Input
-        label="Email"
-        name="email"
+        label={t('clients.fields.email')}
         type="email"
-        value={client.email}
-        onChange={handleChange}
-        error={errors.email}
+        error={errors.email && t(errors.email.message as string)}
+        {...register('email')}
         fullWidth
       />
       
       <Input
-        label="Phone"
-        name="phone"
-        value={client.phone}
-        onChange={handleChange}
-        error={errors.phone}
+        label={t('clients.fields.phone')}
+        error={errors.phone && t(errors.phone.message as string)}
+        {...register('phone')}
         fullWidth
       />
       
       <Input
-        label="Address"
-        name="address"
-        value={client.address}
-        onChange={handleChange}
-        error={errors.address}
+        label={t('clients.fields.address')}
+        error={errors.address && t(errors.address.message as string)}
+        {...register('address')}
         fullWidth
       />
       
       <div className="grid grid-cols-2 gap-4">
         <Input
-          label="City"
-          name="city"
-          value={client.city}
-          onChange={handleChange}
-          error={errors.city}
+          label={t('clients.fields.city')}
+          error={errors.city && t(errors.city.message as string)}
+          {...register('city')}
           fullWidth
         />
         
         <Input
-          label="State/Province"
-          name="state"
-          value={client.state}
-          onChange={handleChange}
-          error={errors.state}
+          label={t('clients.fields.state')}
+          error={errors.state && t(errors.state.message as string)}
+          {...register('state')}
           fullWidth
         />
       </div>
       
       <div className="grid grid-cols-2 gap-4">
         <Input
-          label="ZIP/Postal Code"
-          name="zipCode"
-          value={client.zipCode}
-          onChange={handleChange}
-          error={errors.zipCode}
+          label={t('clients.fields.zipCode')}
+          error={errors.zipCode && t(errors.zipCode.message as string)}
+          {...register('zipCode')}
           fullWidth
         />
         
         <Input
-          label="Country"
-          name="country"
-          value={client.country}
-          onChange={handleChange}
-          error={errors.country}
+          label={t('clients.fields.country')}
+          error={errors.country && t(errors.country.message as string)}
+          {...register('country')}
           fullWidth
         />
       </div>
       
       <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">
         <Button type="button" variant="outline" onClick={onCancel}>
-          Cancel
+          {t('common.actions.cancel')}
         </Button>
         <Button type="submit" variant="primary">
-          {initialData?.id ? 'Update Client' : 'Add Client'}
+          {initialData?.id ? t('common.actions.save') : t('common.actions.create')}
         </Button>
       </div>
     </form>
