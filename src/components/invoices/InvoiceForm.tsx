@@ -182,14 +182,21 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({
             fullWidth
           />
           
-          <Input
-            label="Notes"
-            as="textarea"
-            rows={4}
-            value={invoice.notes || ''}
-            onChange={(e) => setInvoice({ ...invoice, notes: e.target.value })}
-            fullWidth
-          />
+          <div className="mb-4">
+            <label 
+              htmlFor="notes" 
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            >
+              Notes
+            </label>
+            <textarea
+              id="notes"
+              rows={4}
+              value={invoice.notes || ''}
+              onChange={(e) => setInvoice({ ...invoice, notes: e.target.value })}
+              className="block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
+            />
+          </div>
         </div>
         
         <div>
@@ -199,11 +206,11 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({
             {(invoice.items || []).map((item, index) => (
               <div key={item.id} className="flex flex-col space-y-2 p-3 border border-gray-200 dark:border-gray-700 rounded-md">
                 <div className="flex justify-between">
-                  <h4 className="text-sm font-medium">Item #{index + 1}</h4>
+                  <h4 className="text-sm font-medium text-gray-900 dark:text-white">Item #{index + 1}</h4>
                   <button
                     type="button"
                     onClick={() => removeLineItem(index)}
-                    className="text-red-500 hover:text-red-700"
+                    className="text-red-500 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
                     aria-label="Remove item"
                   >
                     <Trash2 size={16} />
@@ -261,7 +268,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({
           <div className="mt-6 space-y-2 border-t border-gray-200 dark:border-gray-700 pt-4">
             <div className="flex justify-between">
               <span className="text-sm text-gray-500 dark:text-gray-400">Subtotal:</span>
-              <span>{formatCurrency(invoice.subtotal || 0)}</span>
+              <span className="text-gray-900 dark:text-white">{formatCurrency(invoice.subtotal || 0)}</span>
             </div>
             
             <div className="flex items-center justify-between">
@@ -276,14 +283,14 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({
                   onChange={(e) => updateTaxRate(parseFloat(e.target.value))}
                   className="w-16 px-2 py-1 text-sm"
                 />
-                <span className="ml-1">%</span>
+                <span className="ml-1 text-gray-900 dark:text-white">%</span>
               </div>
-              <span>{formatCurrency(invoice.taxAmount || 0)}</span>
+              <span className="text-gray-900 dark:text-white">{formatCurrency(invoice.taxAmount || 0)}</span>
             </div>
             
             <div className="flex justify-between border-t border-gray-200 dark:border-gray-700 pt-2 font-semibold">
-              <span>Total:</span>
-              <span>{formatCurrency(invoice.total || 0)}</span>
+              <span className="text-gray-900 dark:text-white">Total:</span>
+              <span className="text-gray-900 dark:text-white">{formatCurrency(invoice.total || 0)}</span>
             </div>
           </div>
         </div>

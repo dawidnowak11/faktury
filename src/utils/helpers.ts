@@ -8,14 +8,14 @@ export const generateId = (): string => {
 // Get status color based on invoice status
 export const getStatusColor = (status: InvoiceStatus): string => {
   const statusColors = {
-    draft: 'bg-gray-200 text-gray-800',
-    sent: 'bg-blue-100 text-blue-800',
-    paid: 'bg-green-100 text-green-800',
-    overdue: 'bg-red-100 text-red-800',
-    cancelled: 'bg-gray-100 text-gray-800'
+    draft: 'bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-300',
+    sent: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
+    paid: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
+    overdue: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
+    cancelled: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
   };
   
-  return statusColors[status] || 'bg-gray-200 text-gray-800';
+  return statusColors[status] || 'bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
 };
 
 // Format phone number
