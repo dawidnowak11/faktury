@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Home, FileText, Users, Settings, BarChart2 } from 'lucide-react';
 
 interface SidebarProps {
@@ -8,11 +9,13 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
+  const { t } = useTranslation();
+  
   const navItems = [
-    { name: 'Dashboard', path: '/', icon: <Home size={20} /> },
-    { name: 'Invoices', path: '/invoices', icon: <FileText size={20} /> },
-    { name: 'Clients', path: '/clients', icon: <Users size={20} /> },
-    { name: 'Reports', path: '/reports', icon: <BarChart2 size={20} /> }
+    { name: t('nav.dashboard'), path: '/', icon: <Home size={20} /> },
+    { name: t('nav.invoices'), path: '/invoices', icon: <FileText size={20} /> },
+    { name: t('nav.clients'), path: '/clients', icon: <Users size={20} /> },
+    { name: t('nav.reports'), path: '/reports', icon: <BarChart2 size={20} /> }
   ];
 
   return (

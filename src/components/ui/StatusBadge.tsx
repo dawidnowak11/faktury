@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { InvoiceStatus } from '../../types';
 
 interface StatusBadgeProps {
@@ -7,6 +8,8 @@ interface StatusBadgeProps {
 }
 
 const StatusBadge: React.FC<StatusBadgeProps> = ({ status, className = '' }) => {
+  const { t } = useTranslation();
+
   const getStatusStyles = (status: InvoiceStatus) => {
     switch (status) {
       case 'paid':
@@ -24,15 +27,11 @@ const StatusBadge: React.FC<StatusBadgeProps> = ({ status, className = '' }) => 
     }
   };
 
-  const getStatusText = (status: InvoiceStatus) => {
-    return status.charAt(0).toUpperCase() + status.slice(1);
-  };
-
   return (
     <span 
       className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${getStatusStyles(status)} ${className}`}
     >
-      {getStatusText(status)}
+      {t(`common.status.${status}`)}
     </span>
   );
 };

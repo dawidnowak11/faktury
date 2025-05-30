@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import Button from './Button';
 
 interface EmptyStateProps {
@@ -17,6 +18,8 @@ const EmptyState: React.FC<EmptyStateProps> = ({
   icon,
   action
 }) => {
+  const { t } = useTranslation();
+  
   return (
     <div className="flex flex-col items-center justify-center p-8 text-center">
       {icon && (
@@ -25,10 +28,10 @@ const EmptyState: React.FC<EmptyStateProps> = ({
         </div>
       )}
       <h2 className="text-xl font-medium text-gray-900 dark:text-white">
-        {title}
+        {t(title)}
       </h2>
       <p className="mt-2 text-sm text-gray-500 dark:text-gray-400 max-w-md">
-        {description}
+        {t(description)}
       </p>
       {action && (
         <Button
@@ -36,7 +39,7 @@ const EmptyState: React.FC<EmptyStateProps> = ({
           className="mt-4"
           onClick={action.onClick}
         >
-          {action.label}
+          {t(action.label)}
         </Button>
       )}
     </div>
