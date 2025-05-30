@@ -1,5 +1,6 @@
 import React from 'react';
-import { Moon, Sun, Menu } from 'lucide-react';
+import { Moon, Sun, Menu, Languages } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../context/ThemeContext';
 import Button from '../ui/Button';
 
@@ -9,6 +10,12 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
   const { theme, toggleTheme } = useTheme();
+  const { t, i18n } = useTranslation();
+
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'en' ? 'pl' : 'en';
+    i18n.changeLanguage(newLang);
+  };
 
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-gray-200 bg-white px-4 dark:border-gray-800 dark:bg-gray-900">
@@ -17,19 +24,30 @@ const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
           variant="ghost" 
           className="md:hidden mr-2" 
           onClick={onMenuToggle}
-          aria-label="Toggle menu"
+          aria-label={t('common.actions.menu')}
         >
           <Menu size={20} />
         </Button>
         <h1 className="text-xl font-bold text-gray-900 dark:text-white">Blinq</h1>
       </div>
       
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-2">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={toggleLanguage}
+          aria-label={t('header.language')}
+          className="rounded-full p-2"
+        >
+          <Languages size={20} className="text-gray-500 dark:text-gray-400" />
+          <span className="ml-2 text-sm">{i18n.language.toUpperCase()}</span>
+        </Button>
+        
         <Button
           variant="ghost"
           size="sm"
           onClick={toggleTheme}
-          aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          aria-label={theme === 'dark' ? t('header.theme.light') : t('header.theme.dark')}
           className="rounded-full p-2"
         >
           {theme === 'dark' ? (
